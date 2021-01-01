@@ -23,22 +23,22 @@ for load in range(number_of_packs):
     elif 1 <= pack_weight <= 10:
         container_weight += pack_weight
         current_emptiness = 20 - container_weight
-    if container_weight == 20:
-        container_count +=1
-        container_weight = 0
-        current_emptiness = 0
     elif container_weight > 20:
+        container_count += 1
         if biggest_emptiness < 20 - (container_weight - pack_weight):
             biggest_emptiness = 20 - (container_weight - pack_weight)
             pack_number = container_count
         container_weight = 0
         container_weight += pack_weight
-        container_count += 1
         current_emptiness = 20 - container_weight
     if container_weight < 20 and load == number_of_packs - 1 and biggest_emptiness < 20 - (container_weight - pack_weight):
         biggest_emptiness = 20 - container_weight
         container_count += 1
         pack_number = container_count
+    if container_weight == 20:
+        container_count +=1
+        container_weight = 0
+        current_emptiness = 0
 
     print("bieżąca ilość wysłanych paczek {}".format(container_count))
     print("bieżąca waga kontenera {}".format(container_weight))
@@ -50,9 +50,12 @@ for load in range(number_of_packs):
 pack_sent = f'Ilość wysłanych paczek: {container_count}'
 kg_sent = f'Ilość wysłanych kilogramów: {total_weight}'
 wasted_kg = f'Liczba pustych kilogramów: {container_count * 20 - total_weight}'
+worst_pack_number = f'Numer najgorzej spakowanej paczki: {pack_number}'
 worst_pack = f'Najwięcej pustych kilogramów na paczkę: {biggest_emptiness}'
+
 
 print(pack_sent)
 print(kg_sent)
 print(wasted_kg)
+print(worst_pack_number)
 print(worst_pack)
