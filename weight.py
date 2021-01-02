@@ -3,6 +3,7 @@ container_count = 0
 total_weight = 0
 biggest_emptiness = 0
 pack_number = 1  # Jedynka dla przypadku tylko jednej nie do końca załadowanej paczki
+previous_full = 0  # Sygnalizacja uzupełnionej do końca poprzedniej paczki
 
 print("Podaj liczbę paczek do wysyłki.")
 number_of_packs = int(input())
@@ -16,7 +17,7 @@ for load in range(number_of_packs):
     if pack_weight == 0 or pack_weight < 1 or pack_weight > 10:
         if container_weight > 0:
             container_count += 1
-        if biggest_emptiness < 20 - container_weight and load > 0:
+        if biggest_emptiness < 20 - container_weight and load > 0 and previous_full == 0:
             biggest_emptiness = 20 - container_weight
             pack_number = container_count
         if pack_weight == 0:
@@ -28,6 +29,8 @@ for load in range(number_of_packs):
 # Właściwy program
 
     total_weight += pack_weight  # Dodane dopiero teraz, żeby nie dodawać błędnej wartości wagi do całości
+    previous_full = 0
+
     if 1 <= pack_weight <= 10:
         container_weight += pack_weight
     if container_weight > 20:
@@ -45,6 +48,7 @@ for load in range(number_of_packs):
     if container_weight == 20:
         container_count += 1
         container_weight = 0
+        previous_full = 1
 
 # Drukowanie
 
